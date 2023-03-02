@@ -1,0 +1,15 @@
+[Unit]
+Description=Zebra Daemon (Testnet)
+After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=10
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=yourUserName
+ExecStart=/home/yourUserName/Development/zebra/target/debug/zebrad --config /home/yourUserName/zebrad/zebrad_testnet.toml start 
+
+[Install]
+WantedBy=multi-user.target
+
