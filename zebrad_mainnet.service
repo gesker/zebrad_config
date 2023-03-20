@@ -1,6 +1,6 @@
 [Unit]
 Description=Zebra Daemon (Mainnet)
-After=network.target
+After=network.target zcashd_mainnet
 StartLimitBurst=5
 StartLimitIntervalSec=10
 [Service]

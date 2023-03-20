@@ -43,11 +43,12 @@ initial_testnet_peers = [
     'testnet.seeder.zfnd.org:18233',
     'testnet.is.yolo.money:18233',
 ]
-listen_addr = '0.0.0.0:18233'
+listen_addr = '127.0.0.1:18233'
 network = 'Testnet'
 peerset_initial_target_size = 25
 
 [rpc]
+listen_addr = '127.0.0.1:18232'
 debug_force_finished_sync = false
 parallel_cpu_threads = 1
 

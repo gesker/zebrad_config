@@ -16,7 +16,7 @@ The single best information resource regarding zebra can be found on its [homepa
 
 The single best information resource for (Debian)[https://www.debian.org] is, of course, the (Debian Home Page)[https://www.debian.org] more specifically the (Debian Users' Manuals)[https://www.debian.org/doc/user-manuals]. (The Debian Administrator's Handbook)[https://debian-handbook.info/] is also an excellent resource. 
 
-This zebrad setup "recipe" assumes that your Debian development workstation already has a copy of the ORIGINAL (zcashd)[https://github.com/zcash/zcash] full node software installed and configured according to the instruction published in my (github repository here)[https://github.com/gesker/zcashd_config]. Completing the instructions found in those instructions is NOT a prerequisite to completing this recipe. However, this document will also follow the same pattern found in the earlier guide of installing the node a Linux Service so that the node software is controlled by the systemd software provided by Debian. The zebra node operate on BOTH the zcash mainnet and testnet blockchains. Because, upon completion of BOTH sets of instructions, your workstation will have *zcashd* running on ports *8233* (mainnet) and *18233* (testnet) and zebrad running on the NON-standard ports of *8244* (for mainnet) and *18244* (for testnet).
+This zebrad setup "recipe" assumes that your Debian development workstation already has a copy of the ORIGINAL (zcashd)[https://github.com/zcash/zcash] full node software installed and configured according to the instruction published in my (github repository here)[https://github.com/gesker/zcashd_config]. Completing the instructions found in those instructions is a prerequisite to completing this recipe. This document will also follow the same pattern found in the earlier guide of installing the node a Linux Service so that the node software is controlled by the systemd software provided by Debian. The zebra node operates on BOTH the zcash mainnet and testnet blockchains. Because, upon completion of BOTH sets of instructions, your workstation will have *zcashd* running on ports *8233* (mainnet) and *18233* (testnet) and zebrad running on the NON-standard ports of *8243* (for mainnet) and *18243* (for testnet).
 
 
 It is helpful when the zebra and/or zcashd software is communicating and synchronizing on BOTH the main (mainnet) and test (testnet) networks and the start/stop life cycle is controlled by the operating system. While there is a great deal of good information resources available for zebra I hope this recipe/guide can bring much of that together, along with a touch of sysadmin, to lower the barrier of entry for developers wishing to build applications utilizing the zcash blockchain and more specifically use zebra for their development efforts.
@@ -43,11 +43,11 @@ It is helpful when the zebra and/or zcashd software is communicating and synchro
   - Testnet (testnet)
 - Configure zcashd
   - Mainnet (mainnet)
-    - Use NON-standard port 8244
-        - Default port is 8233 for mainnet
+    - Use NON-standard port 8243 and 8242 (RPC)
+        - Default port is 8233 for mainnet; 8232 for RPC
   - Testnet (testnet)
-    - Use NON-standard port 18244
-        - Default port is 18233 for mainnet
+    - Use NON-standard port 18243 and 18242 (RPC)
+        - Default port is 18233 for mainnet; 18232 for RPC
 - Configure systemd
 
 
@@ -73,7 +73,7 @@ It is helpful when the zebra and/or zcashd software is communicating and synchro
 ## Requirements
 
 
-- Debian 11 (Bullseye)
+- Debian 11 (Bookworm)
 - Ability to sudo on the system
 - Ability to use a text editor and navigate directories
 - About 400 GB of disk space in your home *~/* directory
@@ -109,8 +109,6 @@ cd ~/Development/
 git clone git@github.com:ZcashFoundation/zebra.git
 cd zebra
 git checkout v1.0.0-rc.5;   
-git clone --depth 1 --branch v1.0.0-rc.5 git@github.com:ZcashFoundation/zebra.git
-cd ~/Development/zebra
 cargo build --all-features --locked
 ```
 
@@ -147,8 +145,8 @@ mkdir ~/zebrad;
 Create a new sub-directory and copy the configuraiton files to this new folder.
 
 ```bash
-wget https://github.com/gesker/zebrad_config/zebrad_mainnet.toml -O ~/zebrad/zebrad_mainnet.toml
-wget https://github.com/gesker/zebrad_config/zebrad_testnet.toml -O ~/zebrad/zebrad_testnet.toml
+sudo wget https://github.com/gesker/zebrad_config/zebrad_mainnet.toml -O ~/zebrad/zebrad_mainnet.toml
+sudo wget https://github.com/gesker/zebrad_config/zebrad_testnet.toml -O ~/zebrad/zebrad_testnet.toml
 ```
 
 **Important:** In BOTH of the files above CHANGE *yourUserName* to your actual username on the system.
@@ -212,7 +210,10 @@ It will take some time for zebrad to fully syncronize the mainnet and testnet bl
 The original software for working with the zcash blockchain (zcashd) was forked from bitcoin and performed two main functions; communicating/operating with the zcash blockchain and managing the wallet.dat file. Zebra (zebrad) is a newer full node software tool that ONLY communicates/operates on the blockchain. It appears that there will be a forthcoming zebra-cli program that will handle wallet.dat operations. In the meantime if you use Zebra install the "companion" lightwalletd software and wallet software designed to work with the zebrad/lightwalletd combination.
 
 
+
 ## This Document
+
+
 
 - Feedback welcome
 - Pull requests welcome

@@ -1,6 +1,6 @@
 [Unit]
 Description=Zebra Daemon (Testnet)
-After=network.target
+After=network.target zcashd_testnet
 StartLimitBurst=5
 StartLimitIntervalSec=10
 [Service]
