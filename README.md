@@ -83,7 +83,7 @@ It is helpful when the zebra and/or zcashd software is communicating and synchro
 
 ```
 sudo apt update
-sudo apt install git 
+sudo apt install wget git libclang-dev protobuf-compiler 
 ```
 
 
@@ -142,7 +142,7 @@ mkdir ~/zebrad;
 ## Step 5 - Copy and UPDATE the configuration files
 
 
-Create a new sub-directory and copy the configuraiton files to this new folder.
+Copy the configuraiton files to this new folder.
 
 ```bash
 sudo wget https://github.com/gesker/zebrad_config/zebrad_mainnet.toml -O ~/zebrad/zebrad_mainnet.toml
